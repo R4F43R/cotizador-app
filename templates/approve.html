@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <title>Aprobar Cotización</title>
+</head>
+<body>
+    <h2>Firma para aprobar la cotización</h2>
+    <canvas id="signature-pad" width="400" height="200" style="border:1px solid #000;"></canvas>
+    <button onclick="saveSignature()">Aprobar</button>
+    <form id="signature-form" method="POST">
+        <input type="hidden" name="signature" id="signature-data">
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script>
+        const canvas = document.getElementById('signature-pad');
+        const signaturePad = new SignaturePad(canvas);
+        function saveSignature() {
+            if (!signaturePad.isEmpty()) {
+                const dataURL = signaturePad.toDataURL();
+                document.getElementById('signature-data').value = dataURL;
+                document.getElementById('signature-form').submit();
+            } else {
+                alert("Por favor, firma antes de enviar.");
+            }
+        }
+    </script>
+</body>
+</html>
